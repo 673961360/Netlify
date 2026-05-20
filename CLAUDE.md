@@ -31,7 +31,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with th
   → Netlify redirect: /api/comments → /.netlify/functions/comments
     → netlify/functions/comments.js
       → GitHub API (Issues + Issue Comments)
-        → 数据存储在 4024001-netizen/Youthink 仓库的 Issues 中
+        → 数据存储在 673961360/Netlify 仓库的 Issues 中
 ```
 
 - 每个话题/文章对应一个 GitHub Issue，标题格式：`[comment] <topic_id>`，label：`comment-store`
@@ -94,16 +94,23 @@ This file provides guidance to Claude Code (claude.ai/code) when working with th
 
 - **主站**：Netlify (`https://youthinking.netlify.app/`)
 - **备站**：GitHub Pages (`https://4024001-netizen.github.io/Youthink/`)
-- **仓库**：`https://github.com/4024001-netizen/Youthink`
-- **部署方式**：推送代码到仓库，Netlify 自动构建部署；GitHub Pages 同步作为备选访问
+- **仓库**：`https://github.com/673961360/Netlify`（`master` 分支）
+- **部署方式**：推送代码到仓库 → Netlify 检测到变更 → 自动构建部署
+
+### Netlify 部署完整步骤
+
+1. 在 Netlify 控制台关联仓库：Site settings → Build & deploy → Linked repository → Connect to GitHub → 选择 `673961360/Netlify`
+2. 配置环境变量（见下方表格）
+3. 推送代码到 `master` 分支，Netlify 自动触发部署
+4. 验证：访问 `https://youthinking.netlify.app/.netlify/functions/comments?topic_id=test` 应返回 `[]`
 
 ### Netlify 环境变量（必须在 Netlify 控制台配置）
 
 | 变量名 | 说明 |
 |--------|------|
 | `GITHUB_TOKEN` | GitHub Personal Access Token（需 `public_repo` 权限） |
-| `GITHUB_REPO_OWNER` | 仓库所有者，如 `4024001-netizen` |
-| `GITHUB_REPO_NAME` | 仓库名，如 `Youthink` |
+| `GITHUB_REPO_OWNER` | 仓库所有者，如 `673961360` |
+| `GITHUB_REPO_NAME` | 仓库名，如 `Netlify` |
 
 ### 生成 GitHub Token 步骤
 
