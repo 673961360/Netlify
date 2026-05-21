@@ -46,9 +46,10 @@ body{font-family:'EB Garamond','Source Serif 4','Noto Serif SC',Georgia,serif;ba
 .essay-tag.professional{color:var(--forest);border:0.5px solid var(--forest);background:var(--forest-light)}
 .essay-tag.creative{color:var(--red);border:0.5px solid var(--red);background:var(--red-light)}
 .essay-tag.neutral{color:var(--gold);border:0.5px solid var(--gold);background:var(--gold-light)}
-.discipline-row{display:flex;border:0.5px solid var(--paper4);border-radius:2px;margin-bottom:32px;overflow:hidden;flex-wrap:wrap;background:var(--paper2)}
-.disc-btn{flex:1;background:none;border:none;border-right:0.5px solid var(--paper4);padding:9px 6px;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);cursor:pointer;font-family:'Source Serif 4',serif;transition:all .2s;text-align:center;min-width:60px}
-.disc-btn:last-child{border-right:none}
+.discipline-row{display:grid;grid-template-columns:repeat(7,1fr);border:0.5px solid var(--paper4);border-radius:2px;margin-bottom:32px;background:var(--paper2)}
+.disc-btn{background:none;border:none;border-right:0.5px solid var(--paper4);border-bottom:0.5px solid var(--paper4);padding:9px 6px;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);cursor:pointer;font-family:'Source Serif 4',serif;transition:all .2s;text-align:center}
+.disc-btn:nth-child(7n){border-right:none}
+.disc-btn:nth-last-child(-n+6){border-bottom:none}
 .disc-btn:hover{background:var(--paper3)}
 .disc-btn.active{background:var(--ink);color:var(--paper)}
 .featured-header{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:20px;padding-bottom:10px;border-bottom:1.5px solid var(--ink)}
@@ -273,7 +274,12 @@ body{font-family:'EB Garamond','Source Serif 4','Noto Serif SC',Georgia,serif;ba
   .pw-box{width:90%;max-width:320px;padding:28px 20px}
 }
 @media(max-width:480px){
-  .discipline-row .disc-btn{min-width:36px;font-size:8px;padding:7px 2px}
+  .discipline-row{grid-template-columns:repeat(4,1fr)}
+  .disc-btn{font-size:8px;padding:7px 2px}
+  .disc-btn:nth-child(7n){border-right:0.5px solid var(--paper4)}
+  .disc-btn:nth-child(4n){border-right:none}
+  .disc-btn:nth-last-child(-n+6){border-bottom:0.5px solid var(--paper4)}
+  .disc-btn:nth-last-child(-n+4){border-bottom:none}
   .nav-btn{padding:7px 8px;font-size:8px}
   .admin-tabs{padding:0 8px}
   .admin-tab{padding:8px 10px;font-size:9px}
@@ -358,6 +364,11 @@ body{font-family:'EB Garamond','Source Serif 4','Noto Serif SC',Georgia,serif;ba
     <button class="disc-btn" onclick="filterHome('Biology')" data-en="Biology" data-zh="生物">Biology</button>
     <button class="disc-btn" onclick="filterHome('Chemistry')" data-en="Chemistry" data-zh="化学">Chemistry</button>
     <button class="disc-btn" onclick="filterHome('Economics')" data-en="Economics" data-zh="经济">Economics</button>
+    <button class="disc-btn" onclick="filterHome('Mathematics')" data-en="Mathematics" data-zh="数学">Mathematics</button>
+    <button class="disc-btn" onclick="filterHome('Sociology')" data-en="Sociology" data-zh="社会学">Sociology</button>
+    <button class="disc-btn" onclick="filterHome('Psychology')" data-en="Psychology" data-zh="心理学">Psychology</button>
+    <button class="disc-btn" onclick="filterHome('Geology')" data-en="Geology" data-zh="地质学">Geology</button>
+    <button class="disc-btn" onclick="filterHome('History')" data-en="History" data-zh="历史">History</button>
   </div>
   <div class="featured-header">
     <div class="section-label" data-en="Featured Essays" data-zh="精选文章">Featured Essays</div>
@@ -511,7 +522,9 @@ body{font-family:'EB Garamond','Source Serif 4','Noto Serif SC',Georgia,serif;ba
             <option>Literature / 文学</option><option>Poetry / 诗歌</option>
             <option>Philosophy / 哲学</option><option>Physics / 物理</option>
             <option>Biology / 生物</option><option>Chemistry / 化学</option>
-            <option>Economics / 经济</option>
+            <option>Economics / 经济</option><option>Mathematics / 数学</option>
+            <option>Sociology / 社会学</option><option>Psychology / 心理学</option>
+            <option>Geology / 地质学</option><option>History / 历史</option>
           </select>
         </div>
         <div class="form-group">
@@ -564,6 +577,11 @@ body{font-family:'EB Garamond','Source Serif 4','Noto Serif SC',Georgia,serif;ba
     <button class="disc-btn" onclick="filterBrowse('Biology')" data-en="Biology" data-zh="生物">Biology</button>
     <button class="disc-btn" onclick="filterBrowse('Chemistry')" data-en="Chemistry" data-zh="化学">Chemistry</button>
     <button class="disc-btn" onclick="filterBrowse('Economics')" data-en="Economics" data-zh="经济">Economics</button>
+    <button class="disc-btn" onclick="filterBrowse('Mathematics')" data-en="Mathematics" data-zh="数学">Mathematics</button>
+    <button class="disc-btn" onclick="filterBrowse('Sociology')" data-en="Sociology" data-zh="社会学">Sociology</button>
+    <button class="disc-btn" onclick="filterBrowse('Psychology')" data-en="Psychology" data-zh="心理学">Psychology</button>
+    <button class="disc-btn" onclick="filterBrowse('Geology')" data-en="Geology" data-zh="地质学">Geology</button>
+    <button class="disc-btn" onclick="filterBrowse('History')" data-en="History" data-zh="历史">History</button>
   </div>
   <div class="search-bar">
     <input class="form-input" type="text" id="search-input" placeholder="Search essays… / 搜索文章…" oninput="renderBrowse()">
@@ -1328,7 +1346,15 @@ function renderHome(){
     document.getElementById('home-award-btn').onclick=()=>openArticle(best,'home');
     document.getElementById('home-award-btn').textContent=t('Read \u2192','\u9605\u8bfb \u2192');
   }else{award.classList.add('hidden');}
-  let filtered=homeFilter?allEssays.filter(e=>e.discipline===homeFilter):allEssays;
+  // Only show essays marked featured=true in the featured grid
+  const isFeatured=e=>{const v=(e.featured||'').toLowerCase();return v==='true'||v==='1';};
+  let pool=allEssays.filter(isFeatured);
+  let filtered=homeFilter?pool.filter(e=>e.discipline===homeFilter):pool;
+  // Fall back to all essays if none are marked featured
+  if(!filtered.length){
+    const allFiltered=homeFilter?allEssays.filter(e=>e.discipline===homeFilter):allEssays;
+    filtered=allFiltered;
+  }
   if(!filtered.length){featured.style.display='none';empty.classList.remove('hidden');return;}
   empty.classList.add('hidden');
   const main=filtered[0],sides=filtered.slice(1,4);
@@ -1433,8 +1459,8 @@ function renderForum(){
     </div>`).join('');
 }
 
-// THREAD & COMMENTS — Netlify Functions proxy (GitHub Issues backend)
-const COMMENTS_API = '/api/comments';
+// THREAD & COMMENTS
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwuzsAW58LyAWZ_v7pVyjN1dJMNS2Ek8QLbCqXQOXO6HjhbyepCnY3RmD5fM6WfV5ge/exec';
 let currentTopicId = '';
 
 function openThread(topic){
@@ -1457,7 +1483,7 @@ function loadComments(topicId){
   const empty = document.getElementById('comments-empty');
   const countEl = document.getElementById('comment-count');
   list.innerHTML=''; loading.classList.remove('hidden'); empty.classList.add('hidden');
-  fetch(COMMENTS_API + '?topic_id=' + encodeURIComponent(topicId))
+  fetch(APPS_SCRIPT_URL + '?topic_id=' + encodeURIComponent(topicId))
     .then(r=>r.json())
     .then(rows=>{
       loading.classList.add('hidden');
@@ -1491,23 +1517,25 @@ function submitComment(){
   if(!content){errEl.textContent=t('Please write a comment.','请填写留言内容。');return;}
   if(content.length<10){errEl.textContent=t('Comment is too short (min 10 characters).','留言太短，请至少写10个字。');return;}
   btn.disabled=true; btn.textContent=t('Posting…','发布中…');
-  fetch(COMMENTS_API, {
+  // Use no-cors mode to avoid CORS issues with Apps Script
+  const formData = new FormData();
+  formData.append('topic_id', currentTopicId);
+  formData.append('name', name);
+  formData.append('grade', grade);
+  formData.append('content', content);
+  fetch(APPS_SCRIPT_URL, {
     method:'POST',
-    headers:{'Content-Type':'application/json'},
-    body: JSON.stringify({ topic_id: currentTopicId, name, grade, content })
+    mode:'no-cors',
+    body: formData
   })
-  .then(r=>r.json())
-  .then(data=>{
-    if(data.success){
-      sucEl.classList.remove('hidden');
-      sucEl.textContent=t('✓ Comment posted! Reloading…','✓ 留言成功！正在刷新…');
-      document.getElementById('comment-name').value='';
-      document.getElementById('comment-grade').value='';
-      document.getElementById('comment-text').value='';
-      setTimeout(()=>loadComments(currentTopicId), 2000);
-    } else {
-      errEl.textContent = data.error || t('Failed. Please try again.','发送失败，请重试。');
-    }
+  .then(()=>{
+    // no-cors means we can't read the response, but if no error thrown it worked
+    sucEl.classList.remove('hidden');
+    sucEl.textContent=t('✓ Comment posted! Reloading…','✓ 留言成功！正在刷新…');
+    document.getElementById('comment-name').value='';
+    document.getElementById('comment-grade').value='';
+    document.getElementById('comment-text').value='';
+    setTimeout(()=>loadComments(currentTopicId), 2000);
   })
   .catch(()=>{ errEl.textContent=t('Network error. Please try again.','网络错误，请重试。'); })
   .finally(()=>{ btn.disabled=false; btn.textContent=t('Post Comment →','发布留言 →'); });
@@ -1626,6 +1654,9 @@ function toggleLike(essayId,btn){
   setLocalLike(essayId,newCount);
   btn.classList.add('liked');
   btn.innerHTML=`\u2665 ${newCount} ${t('likes','\u70b9\u8d5e')}`;
+  const formData=new FormData();
+  formData.append('action','like');formData.append('essay_id',essayId);
+  fetch(APPS_SCRIPT_URL,{method:'POST',mode:'no-cors',body:formData}).catch(()=>{});
   btn.disabled=false;
 }
 
@@ -1636,7 +1667,7 @@ function loadArticleComments(id){
   const empty=document.getElementById('article-comments-empty');
   if(!list)return;
   list.innerHTML='';loading.textContent=t('Loading comments…','\u52a0\u8f7d\u4e2d\u2026');loading.style.display='block';if(empty)empty.classList.add('hidden');
-  fetch(COMMENTS_API+'?topic_id=article_'+encodeURIComponent(id))
+  fetch(APPS_SCRIPT_URL+'?topic_id=article_'+encodeURIComponent(id))
     .then(r=>r.json())
     .then(rows=>{
       loading.style.display='none';
@@ -1656,25 +1687,13 @@ function submitArticleComment(){
   if(!name){errEl.textContent=t('Please enter your name.','请填写姓名。');return;}
   if(!content||content.length<5){errEl.textContent=t('Comment too short.','评论太短。');return;}
   btn.disabled=true;btn.textContent=t('Posting…','发布中…');
-  fetch(COMMENTS_API,{
-    method:'POST',
-    headers:{'Content-Type':'application/json'},
-    body: JSON.stringify({ topic_id:'article_'+currentArticleId, name, grade, content })
-  })
-  .then(r=>r.json())
-  .then(data=>{
-    if(data.success){
-      sucEl.classList.remove('hidden');
-      document.getElementById('ac-name').value='';
-      document.getElementById('ac-grade').value='';
-      document.getElementById('ac-text').value='';
-      setTimeout(()=>loadArticleComments(currentArticleId),1500);
-    } else {
-      errEl.textContent = data.error || t('Error. Please try again.','错误，请重试。');
-    }
-  })
-  .catch(()=>{errEl.textContent=t('Error. Please try again.','错误，请重试。');})
-  .finally(()=>{btn.disabled=false;btn.textContent='Post →';});
+  const formData=new FormData();
+  formData.append('topic_id','article_'+currentArticleId);
+  formData.append('name',name);formData.append('grade',grade);formData.append('content',content);
+  fetch(APPS_SCRIPT_URL,{method:'POST',mode:'no-cors',body:formData})
+    .then(()=>{sucEl.classList.remove('hidden');document.getElementById('ac-name').value='';document.getElementById('ac-grade').value='';document.getElementById('ac-text').value='';setTimeout(()=>loadArticleComments(currentArticleId),1500);})
+    .catch(()=>{errEl.textContent=t('Error. Please try again.','错误，请重试。');})
+    .finally(()=>{btn.disabled=false;btn.textContent='Post →';});
 }
 
 // FEEDBACK
