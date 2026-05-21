@@ -279,7 +279,7 @@ body{font-family:'EB Garamond','Source Serif 4','Noto Serif SC',Georgia,serif;ba
   .disc-btn:nth-child(7n){border-right:0.5px solid var(--paper4)}
   .disc-btn:nth-child(4n){border-right:none}
   .disc-btn:nth-last-child(-n+6){border-bottom:0.5px solid var(--paper4)}
-  .disc-btn:nth-last-child(-n+4){border-bottom:none}
+  .disc-btn:nth-last-child(-n+3){border-bottom:none}
   .nav-btn{padding:7px 8px;font-size:8px}
   .admin-tabs{padding:0 8px}
   .admin-tab{padding:8px 10px;font-size:9px}
@@ -522,9 +522,12 @@ body{font-family:'EB Garamond','Source Serif 4','Noto Serif SC',Georgia,serif;ba
             <option>Literature / 文学</option><option>Poetry / 诗歌</option>
             <option>Philosophy / 哲学</option><option>Physics / 物理</option>
             <option>Biology / 生物</option><option>Chemistry / 化学</option>
-            <option>Economics / 经济</option><option>Mathematics / 数学</option>
-            <option>Sociology / 社会学</option><option>Psychology / 心理学</option>
-            <option>Geology / 地质学</option><option>History / 历史</option>
+            <option>Economics / 经济</option>
+            <option>Mathematics / 数学</option>
+            <option>Sociology / 社会学</option>
+            <option>Psychology / 心理学</option>
+            <option>Geology / 地质学</option>
+            <option>History / 历史</option>
           </select>
         </div>
         <div class="form-group">
@@ -1346,15 +1349,7 @@ function renderHome(){
     document.getElementById('home-award-btn').onclick=()=>openArticle(best,'home');
     document.getElementById('home-award-btn').textContent=t('Read \u2192','\u9605\u8bfb \u2192');
   }else{award.classList.add('hidden');}
-  // Only show essays marked featured=true in the featured grid
-  const isFeatured=e=>{const v=(e.featured||'').toLowerCase();return v==='true'||v==='1';};
-  let pool=allEssays.filter(isFeatured);
-  let filtered=homeFilter?pool.filter(e=>e.discipline===homeFilter):pool;
-  // Fall back to all essays if none are marked featured
-  if(!filtered.length){
-    const allFiltered=homeFilter?allEssays.filter(e=>e.discipline===homeFilter):allEssays;
-    filtered=allFiltered;
-  }
+  let filtered=homeFilter?allEssays.filter(e=>e.discipline===homeFilter):allEssays;
   if(!filtered.length){featured.style.display='none';empty.classList.remove('hidden');return;}
   empty.classList.add('hidden');
   const main=filtered[0],sides=filtered.slice(1,4);
