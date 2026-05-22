@@ -1344,7 +1344,8 @@ function renderHome(){
     document.getElementById('home-award-btn').onclick=()=>openArticle(best,'home');
     document.getElementById('home-award-btn').textContent=t('Read \u2192','\u9605\u8bfb \u2192');
   }else{award.classList.add('hidden');}
-  let filtered=homeFilter?allEssays.filter(e=>e.discipline===homeFilter):allEssays;
+  const featuredEssays=allEssays.filter(e=>{const v=(e.featured||'').toLowerCase();return v==='true'||v==='1';});
+  let filtered=homeFilter?featuredEssays.filter(e=>e.discipline===homeFilter):featuredEssays;
   if(!filtered.length){featured.style.display='none';empty.classList.remove('hidden');return;}
   empty.classList.add('hidden');
   const featuredIdx=filtered.findIndex(e=>{const v=(e.featured||'').toLowerCase();return v==='true'||v==='1';});
