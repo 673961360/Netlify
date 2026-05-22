@@ -1347,7 +1347,10 @@ function renderHome(){
   let filtered=homeFilter?allEssays.filter(e=>e.discipline===homeFilter):allEssays;
   if(!filtered.length){featured.style.display='none';empty.classList.remove('hidden');return;}
   empty.classList.add('hidden');
-  const main=filtered[0],sides=filtered.slice(1,4);
+  const featuredIdx=filtered.findIndex(e=>{const v=(e.featured||'').toLowerCase();return v==='true'||v==='1';});
+  const main=featuredIdx>=0?filtered[featuredIdx]:filtered[0];
+  const rest=filtered.filter((_,i)=>i!==Math.max(featuredIdx,0));
+  const sides=rest.slice(0,3);
   featured.innerHTML=`
     <div class="featured-main">
       <span class="essay-tag ${tagCls(main.style)}">${main.discipline} \u00b7 ${main.style}</span>
